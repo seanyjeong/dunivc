@@ -17,6 +17,7 @@
             display: flex;
             justify-content: space-between;
             gap: 20px;
+            height: calc(100vh - 80px); /* 화면 높이를 꽉 채우기 위해 */
         }
 
         .section {
@@ -24,20 +25,22 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 48%;
+            width: 50%;
             box-sizing: border-box;
             overflow-x: auto;
+            display: flex;
+            flex-direction: column;
         }
 
         h1 {
             text-align: center;
             margin-bottom: 20px;
-            width: 100%;
         }
 
         h2 {
             text-align: center;
             margin-bottom: 10px;
+            font-size: 1.5em;
         }
 
         table {
@@ -54,37 +57,40 @@
         th, td {
             padding: 8px;
             text-align: center;
+            white-space: nowrap; /* 줄바꿈 방지 */
         }
 
         th {
             background-color: #f2f2f2;
         }
-
-        @media screen and (max-width: 1200px) {
-            table {
-                font-size: 0.9rem;
-            }
-        }
-
-        @media screen and (max-width: 900px) {
-            table {
-                font-size: 0.8rem;
-            }
-        }
-
-        @media screen and (max-width: 600px) {
-            table {
-                font-size: 0.7rem;
-            }
-        }
-
-        @media screen and (max-width: 400px) {
-            table {
-                font-size: 0.6rem;
-            }
+        
+        /* 자동으로 글자 크기를 조절하는 스타일 */
+        .adjustable-text {
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
     </style>
     <script>
+        // 글자 크기를 조절하는 함수
+        function adjustTextSize() {
+            const tables = document.querySelectorAll('table');
+            tables.forEach(table => {
+                const rows = table.querySelectorAll('tr');
+                rows.forEach(row => {
+                    const cells = row.querySelectorAll('td, th');
+                    cells.forEach(cell => {
+                        let fontSize = 16; // 초기 글자 크기 설정
+                        while (cell.scrollWidth > cell.clientWidth && fontSize > 10) {
+                            fontSize--;
+                            cell.style.fontSize = fontSize + 'px';
+                        }
+                    });
+                });
+            });
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             fetch('https://supermax.kr/get-susi-data')
                 .then(response => response.json())
@@ -95,18 +101,19 @@
                         const gender = item.gender === 'male' ? '남자' : '여자';
 
                         row.innerHTML = `
-                            <td>${item.name}</td>
-                            <td>${item.academy}</td>
-                            <td>${gender}</td>
-                            <td>${item.standingJump}</td>
-                            <td>${item.weightedRun}</td>
-                            <td>${item.backStrength}</td>
-                            <td>${item.sitAndReach}</td>
-                            <td>${item.academicScore}</td>
-                            <td>${item.totalScore}</td>
+                            <td class="adjustable-text">${item.name}</td>
+                            <td class="adjustable-text">${item.academy}</td>
+                            <td class="adjustable-text">${gender}</td>
+                            <td class="adjustable-text">${item.standingJump}</td>
+                            <td class="adjustable-text">${item.weightedRun}</td>
+                            <td class="adjustable-text">${item.backStrength}</td>
+                            <td class="adjustable-text">${item.sitAndReach}</td>
+                            <td class="adjustable-text">${item.academicScore}</td>
+                            <td class="adjustable-text">${item.totalScore}</td>
                         `;
                         susiTableBody.appendChild(row);
                     });
+                    adjustTextSize(); // 글자 크기 조절 함수 호출
                 })
                 .catch(error => console.error('Error:', error));
 
@@ -116,24 +123,28 @@
                     const jeongsiTableBody = document.getElementById('jeongsi-data-table-body');
                     data.forEach(item => {
                         const row = document.createElement('tr');
-                        const gender = item.gender === 'male' ? '남' : '여';
+                        const gender = item.gender === 'male' ? '남자' : '여자';
 
                         row.innerHTML = `
-                            <td>${item.name}</td>
-                            <td>${item.academy}</td>
-                            <td>${gender}</td>
-                            <td>${item.standingJump}</td>
-                            <td>${item.weightedRun}</td>
-                            <td>${item.backStrength}</td>
-                            <td>${item.sitAndReach}</td>
-                            <td>${item.academicScore}</td>
-                            <td>${item.totalScore}</td>
+                            <td class="adjustable-text">${item.name}</td>
+                            <td class="adjustable-text">${item.academy}</td>
+                            <td class="adjustable-text">${gender}</td>
+                            <td class="adjustable-text">${item.standingJump}</td>
+                            <td class="adjustable-text">${item.weightedRun}</td>
+                            <td class="adjustable-text">${item.backStrength}</td>
+                            <td class="adjustable-text">${item.sitAndReach}</td>
+                            <td class="adjustable-text">${item.academicScore}</td>
+                            <td class="adjustable-text">${item.totalScore}</td>
                         `;
                         jeongsiTableBody.appendChild(row);
                     });
+                    adjustTextSize(); // 글자 크기 조절 함수 호출
                 })
                 .catch(error => console.error('Error:', error));
         });
+
+        // 창 크기 변경 시 글자 크기를 다시 조절
+        window.addEventListener('resize', adjustTextSize);
     </script>
 </head>
 <body>
