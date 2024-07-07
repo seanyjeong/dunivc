@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동국대학교 체육교육과 데이터</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            box-sizing: border-box;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('https://supermax.kr/get-all-data')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('data-table-body');
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${item.name}</td>
+                            <td>${item.academy}</td>
+                            <td>${item.gender}</td>
+                            <td>${item.standingJump}</td>
+                            <td>${item.weightedRun}</td>
+                            <td>${item.backStrength}</td>
+                            <td>${item.sitAndReach}</td>
+                            <td>${item.academicScore}</td>
+                            <td>${item.totalScore}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>동국대학교 체육교육과 데이터</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>이름</th>
+                    <th>체대입시학원명</th>
+                    <th>성별</th>
+                    <th>제자리멀리뛰기</th>
+                    <th>중량메고달리기</th>
+                    <th>배근력</th>
+                    <th>좌전굴</th>
+                    <th>수능/내신 점수</th>
+                    <th>총점</th>
+                </tr>
+            </thead>
+            <tbody id="data-table-body">
+                <!-- 데이터가 여기에 추가됩니다. -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
