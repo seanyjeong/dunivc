@@ -15,6 +15,8 @@
 
         .container {
             display: flex;
+            flex-direction: column;
+            align-items: center;
             justify-content: space-between;
             gap: 20px;
         }
@@ -24,8 +26,10 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 48%;
+            width: 100%;
+            max-width: 1200px;
             box-sizing: border-box;
+            overflow-x: auto;
         }
 
         h1 {
@@ -42,6 +46,7 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            font-size: 1rem;
         }
 
         table, th, td {
@@ -56,15 +61,37 @@
         th {
             background-color: #f2f2f2;
         }
+
+        @media screen and (max-width: 1200px) {
+            table {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            table {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            table {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            table {
+                font-size: 0.6rem;
+            }
+        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('https://supermax.kr/get-all-data')
+            fetch('https://supermax.kr/get-susi-data')
                 .then(response => response.json())
                 .then(data => {
                     const susiTableBody = document.getElementById('susi-data-table-body');
-                    const jeongsiTableBody = document.getElementById('jeongsi-data-table-body');
-
                     data.forEach(item => {
                         const row = document.createElement('tr');
                         const gender = item.gender === 'male' ? '남자' : '여자';
@@ -80,12 +107,31 @@
                             <td>${item.academicScore}</td>
                             <td>${item.totalScore}</td>
                         `;
+                        susiTableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
 
-                        if (item.formType === 'susi') {
-                            susiTableBody.appendChild(row);
-                        } else if (item.formType === 'jeongsi') {
-                            jeongsiTableBody.appendChild(row);
-                        }
+            fetch('https://supermax.kr/get-jeongsi-data')
+                .then(response => response.json())
+                .then(data => {
+                    const jeongsiTableBody = document.getElementById('jeongsi-data-table-body');
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        const gender = item.gender === 'male' ? '남자' : '여자';
+
+                        row.innerHTML = `
+                            <td>${item.name}</td>
+                            <td>${item.academy}</td>
+                            <td>${gender}</td>
+                            <td>${item.standingJump}</td>
+                            <td>${item.weightedRun}</td>
+                            <td>${item.backStrength}</td>
+                            <td>${item.sitAndReach}</td>
+                            <td>${item.academicScore}</td>
+                            <td>${item.totalScore}</td>
+                        `;
+                        jeongsiTableBody.appendChild(row);
                     });
                 })
                 .catch(error => console.error('Error:', error));
@@ -94,6 +140,7 @@
 </head>
 <body>
     <div class="container">
+        <h1>동국대학교 체육교육과 데이터</h1>
         <div class="section">
             <h2>수시 데이터</h2>
             <table>
