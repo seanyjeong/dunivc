@@ -14,19 +14,28 @@
         }
 
         .container {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .section {
             background-color: #fff;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 90%;
-            max-width: 1200px;
-            margin: auto;
+            width: 48%;
             box-sizing: border-box;
         }
 
         h1 {
             text-align: center;
             margin-bottom: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 10px;
         }
 
         table {
@@ -53,13 +62,17 @@
             fetch('https://supermax.kr/get-all-data')
                 .then(response => response.json())
                 .then(data => {
-                    const tableBody = document.getElementById('data-table-body');
+                    const susiTableBody = document.getElementById('susi-data-table-body');
+                    const jeongsiTableBody = document.getElementById('jeongsi-data-table-body');
+
                     data.forEach(item => {
                         const row = document.createElement('tr');
+                        const gender = item.gender === 'male' ? '남자' : '여자';
+
                         row.innerHTML = `
                             <td>${item.name}</td>
                             <td>${item.academy}</td>
-                            <td>${item.gender}</td>
+                            <td>${gender}</td>
                             <td>${item.standingJump}</td>
                             <td>${item.weightedRun}</td>
                             <td>${item.backStrength}</td>
@@ -67,7 +80,12 @@
                             <td>${item.academicScore}</td>
                             <td>${item.totalScore}</td>
                         `;
-                        tableBody.appendChild(row);
+
+                        if (item.formType === 'susi') {
+                            susiTableBody.appendChild(row);
+                        } else if (item.formType === 'jeongsi') {
+                            jeongsiTableBody.appendChild(row);
+                        }
                     });
                 })
                 .catch(error => console.error('Error:', error));
@@ -76,25 +94,48 @@
 </head>
 <body>
     <div class="container">
-        <h1>동국대학교 체육교육과 데이터</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>이름</th>
-                    <th>체대입시학원명</th>
-                    <th>성별</th>
-                    <th>제자리멀리뛰기</th>
-                    <th>중량메고달리기</th>
-                    <th>배근력</th>
-                    <th>좌전굴</th>
-                    <th>수능/내신 점수</th>
-                    <th>총점</th>
-                </tr>
-            </thead>
-            <tbody id="data-table-body">
-                <!-- 데이터가 여기에 추가됩니다. -->
-            </tbody>
-        </table>
+        <div class="section">
+            <h2>수시 데이터</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>체대입시학원명</th>
+                        <th>성별</th>
+                        <th>제자리멀리뛰기</th>
+                        <th>중량메고달리기</th>
+                        <th>배근력</th>
+                        <th>좌전굴</th>
+                        <th>수능/내신 점수</th>
+                        <th>총점</th>
+                    </tr>
+                </thead>
+                <tbody id="susi-data-table-body">
+                    <!-- 수시 데이터가 여기에 추가됩니다. -->
+                </tbody>
+            </table>
+        </div>
+        <div class="section">
+            <h2>정시 데이터</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>이름</th>
+                        <th>체대입시학원명</th>
+                        <th>성별</th>
+                        <th>제자리멀리뛰기</th>
+                        <th>중량메고달리기</th>
+                        <th>배근력</th>
+                        <th>좌전굴</th>
+                        <th>수능/내신 점수</th>
+                        <th>총점</th>
+                    </tr>
+                </thead>
+                <tbody id="jeongsi-data-table-body">
+                    <!-- 정시 데이터가 여기에 추가됩니다. -->
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>
