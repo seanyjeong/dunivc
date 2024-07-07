@@ -24,7 +24,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 50%;
+            width: 48%;
             box-sizing: border-box;
             overflow-x: auto;
         }
@@ -60,13 +60,29 @@
         th {
             background-color: #f2f2f2;
         }
-        
-        /* 자동으로 글자 크기를 조절하는 스타일 */
-        .adjustable-text {
-            display: block;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+
+        @media screen and (max-width: 1200px) {
+            table {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media screen and (max-width: 900px) {
+            table {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            table {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media screen and (max-width: 400px) {
+            table {
+                font-size: 0.6rem;
+            }
         }
     </style>
     <script>
@@ -97,17 +113,16 @@
                         const row = document.createElement('tr');
                         const gender = item.gender === 'male' ? '남자' : '여자';
 
-                        row.innerHTML = `
-                            <td class="adjustable-text">${item.name}</td>
-                            <td class="adjustable-text">${item.academy}</td>
-                            <td class="adjustable-text">${gender}</td>
-                            <td class="adjustable-text">${item.standingJump}</td>
-                            <td class="adjustable-text">${item.weightedRun}</td>
-                            <td class="adjustable-text">${item.backStrength}</td>
-                            <td class="adjustable-text">${item.sitAndReach}</td>
-                            <td class="adjustable-text">${item.academicScore}</td>
-                            <td class="adjustable-text">${item.totalScore}</td>
-                        `;
+                        row.insertCell().textContent = item.name;
+                        row.insertCell().textContent = item.academy;
+                        row.insertCell().textContent = gender;
+                        row.insertCell().textContent = item.standingJump;
+                        row.insertCell().textContent = item.weightedRun;
+                        row.insertCell().textContent = item.backStrength;
+                        row.insertCell().textContent = item.sitAndReach;
+                        row.insertCell().textContent = item.academicScore;
+                        row.insertCell().textContent = item.totalScore;
+                        
                         susiTableBody.appendChild(row);
                     });
                     adjustTextSize(); // 글자 크기 조절 함수 호출
@@ -122,17 +137,16 @@
                         const row = document.createElement('tr');
                         const gender = item.gender === 'male' ? '남자' : '여자';
 
-                        row.innerHTML = `
-                            <td class="adjustable-text">${item.name}</td>
-                            <td class="adjustable-text">${item.academy}</td>
-                            <td class="adjustable-text">${gender}</td>
-                            <td class="adjustable-text">${item.standingJump}</td>
-                            <td class="adjustable-text">${item.weightedRun}</td>
-                            <td class="adjustable-text">${item.backStrength}</td>
-                            <td class="adjustable-text">${item.sitAndReach}</td>
-                            <td class="adjustable-text">${item.academicScore}</td>
-                            <td class="adjustable-text">${item.totalScore}</td>
-                        `;
+                        row.insertCell().textContent = item.name;
+                        row.insertCell().textContent = item.academy;
+                        row.insertCell().textContent = gender;
+                        row.insertCell().textContent = item.standingJump;
+                        row.insertCell().textContent = item.weightedRun;
+                        row.insertCell().textContent = item.backStrength;
+                        row.insertCell().textContent = item.sitAndReach;
+                        row.insertCell().textContent = item.academicScore;
+                        row.insertCell().textContent = item.totalScore;
+
                         jeongsiTableBody.appendChild(row);
                     });
                     adjustTextSize(); // 글자 크기 조절 함수 호출
