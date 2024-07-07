@@ -121,8 +121,9 @@
                         row.insertCell().textContent = item.backStrength;
                         row.insertCell().textContent = item.sitAndReach;
                         row.insertCell().textContent = item.academicScore;
-                        row.insertCell().textContent = item.totalScore;
-                        
+                        row.insertCell().textContent = item.practicalScore; // 실기점수
+                        row.insertCell().textContent = item.totalScore; // 총점
+
                         susiTableBody.appendChild(row);
                     });
                     adjustTextSize(); // 글자 크기 조절 함수 호출
@@ -145,7 +146,8 @@
                         row.insertCell().textContent = item.backStrength;
                         row.insertCell().textContent = item.sitAndReach;
                         row.insertCell().textContent = item.academicScore;
-                        row.insertCell().textContent = item.totalScore;
+                        row.insertCell().textContent = item.practicalScore; // 실기점수
+                        row.insertCell().textContent = item.totalScore; // 총점
 
                         jeongsiTableBody.appendChild(row);
                     });
@@ -173,7 +175,8 @@
                         <th>중달</th>
                         <th>배근력</th>
                         <th>좌전굴</th>
-                        <th>수능/내신 점수</th>
+                        <th>내신점수</th>
+                        <th>실기점수</th>
                         <th>총점</th>
                     </tr>
                 </thead>
@@ -194,7 +197,8 @@
                         <th>중달</th>
                         <th>배근력</th>
                         <th>좌전굴</th>
-                        <th>수능/내신 점수</th>
+                        <th>수능점수</th>
+                        <th>실기점수</th>
                         <th>총점</th>
                     </tr>
                 </thead>
