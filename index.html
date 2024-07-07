@@ -116,7 +116,7 @@
                     const jeongsiTableBody = document.getElementById('jeongsi-data-table-body');
                     data.forEach(item => {
                         const row = document.createElement('tr');
-                        const gender = item.gender === 'male' ? '남자' : '여자';
+                        const gender = item.gender === 'male' ? '남' : '여';
 
                         row.innerHTML = `
                             <td>${item.name}</td>
